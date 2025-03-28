@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		div
+		{
+			border:2px solid dodgerblue;
+			width:20%;
+			height:40%;
+			padding: 10px;
+			display: inline-block;
+			
+		}
+		h1
+		{
+			text-align: center;
+			background-color: dodgerblue;
+			height:40%;
+			font-size:70px;
+		}
+		h4
+		{
+		
+			font-size:20px;
+		}
+	</style>
+</head>
+
+<body>
+                    <a class="nav-link" th:href="@{/admin}" href="#">admin-home</a>
+                    <a class="nav-link" th:href="@{/logout}" href="#">logout</a>
+    			<h1>Food Basket</h1>
+    			<div >
+                    <h4>Categories</h4>
+                    <a href="/admin/categories">Manage</a>
+					</div>
+<div>
+                    <h4>Product</h4>
+                    <a href="/admin/product">Manage</a>
+</div>
+<div>
+	
+
+   				 <h4>New User</h4>
+                    <a href="/admin/categories">Manage</a>
+</div>
+</body>
+</html>

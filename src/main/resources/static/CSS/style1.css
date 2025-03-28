@@ -1,0 +1,72 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styles for header */
+header {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Basic styles for navigation */
+nav ul {
+    list-style-type: none;
+    text-align: center;
+    padding: 10px;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Main section styles */
+.main-section {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.main-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.main-section p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Button styles */
+.btn {
+    background-color: #2ecc71;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #27ae60;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
