@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.UUID;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import com.example.demo.service.UserService;
 
 @Controller
 public class AdminController {
-	public static String uploadDir=System.getProperty("user.dir")+"/src/main/resources/static/productImages";
+	public static String uploadDir=System.getProperty("user.dir")+"/uploads/productImages";
 
 	
 	@Autowired
@@ -121,10 +122,11 @@ public class AdminController {
 		
 		//save product
 		@RequestMapping("/admin/product/save")
-		public String saveProduct(@ModelAttribute("productDTO") ProductDTO productDTO,
-				@RequestParam("productImage")MultipartFile file,
-				@RequestParam("imgName")String imgName)throws IOException
-		{
+	public String saveProduct(@ModelAttribute("productDTO") ProductDTO productDTO,
+			@RequestParam("productImage")MultipartFile file,
+			@RequestParam(name = "imgUrl", required = false) String imgUrl,
+			@RequestParam("imgName")String imgName)throws IOException
+	{
 				
 			Product product=new Product();
 			product.setProduct_id(productDTO.getProduct_id());
@@ -133,18 +135,25 @@ public class AdminController {
 				
 			product.setPrice(productDTO.getPrice());
 			product.setWeight(productDTO.getWeight());
-			String imageUUID;
-			if(!file.isEmpty())
-			{
-				imageUUID=file.getOriginalFilename();
-				Path fileNameAndPath=Paths.get(uploadDir,imageUUID);
-				Files.write(fileNameAndPath, file.getBytes());
-				
+		String imageUUID;
+		String url = imgUrl != null ? imgUrl.trim() : "";
+		if (!url.isEmpty()) {
+			imageUUID = url;
+		} else if(!file.isEmpty()) {
+			String originalName = file.getOriginalFilename();
+			String extension = "";
+			if (originalName != null && originalName.contains(".")) {
+				extension = originalName.substring(originalName.lastIndexOf("."));
 			}
-			else
-			{
-				imageUUID=imgName;
-			}
+			imageUUID = UUID.randomUUID().toString() + extension;
+			Path uploadPath = Paths.get(uploadDir);
+			Files.createDirectories(uploadPath);
+			Path fileNameAndPath=uploadPath.resolve(imageUUID);
+			Files.write(fileNameAndPath, file.getBytes());
+			
+		} else {
+			imageUUID=imgName;
+		}
 			product.setImgName(imageUUID);			
 			productService.addProduct(product);
 						

@@ -8,22 +8,124 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css">
 
-    <title>Document</title>
+    <title>Cart</title>
+    <style>
+        :root {
+            --brand: #16a34a;
+            --brand-dark: #0f8a3d;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --card: #ffffff;
+            --line: #e5e7eb;
+        }
+        body {
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(22, 163, 74, 0.18), transparent 42%),
+                radial-gradient(circle at 86% 12%, rgba(59, 130, 246, 0.14), transparent 38%),
+                #f4f6fb;
+            color: var(--ink);
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+        .brand {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: var(--ink);
+            margin-right: 10px;
+        }
+        .nav-pills a.nav-link {
+            background: #ffffff;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 16px;
+            margin-left: 8px;
+            color: var(--ink);
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .nav-pills a.nav-link:hover {
+            background: var(--brand);
+            color: #ffffff;
+            border-color: var(--brand);
+        }
+        .cart-badge {
+            background: var(--ink);
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+        .page-wrap {
+            margin-top: 24px;
+        }
+        .glass-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+        }
+        .cart-item {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 14px;
+            background: #ffffff;
+        }
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .rupee::before {
+            content: "\20B9";
+            font-family: "Noto Sans", "Segoe UI", sans-serif;
+            margin-right: 4px;
+        }
+        .meta {
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            border: none;
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-weight: 600;
+        }
+        .remove-link {
+            color: #ef4444;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .remove-link:hover {
+            text-decoration: underline;
+        }
+        .section-title {
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-         Welcome ,<span class="nav-link" th:text="${user.FullName}">0</span>
-   
+        <span class="brand">FreshCart</span>
+        <span class="mr-3">Welcome, <span class="meta" th:text="${user.FullName}"></span></span>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
-            
-            <ul class="navbar-nav">
+
+            <ul class="navbar-nav nav-pills">
                 <li class="nav-item active">
                     <a class="nav-link" th:href="@{/}" href="index.html">home</a>
                 </li>
@@ -40,129 +142,90 @@
                     <a class="nav-link" th:href="@{/cart}" href="cart.html">cart</a>
                 </li>
                 <li class="nav-item active">
-                    <span class="nav-link" th:text="${cartCount}">0</span>
+                    <span class="cart-badge" th:text="${cartCount}">0</span>
                 </li>
             </ul>
 
         </div>
     </div>
 </nav>
-<main>
+<main class="page-wrap">
     <div class="container">
 
-        <!--Section: Block Content-->
-        <section class="mt-5 mb-4">
-
-            <!--Grid row-->
+        <section class="mt-4 mb-4">
             <div class="row">
-
-                <!--Grid column-->
                 <div class="col-lg-8">
+                    <div class="glass-card mb-4 p-4">
+                        <h5 class="mb-4 section-title">Cart (<span th:text="${cartCount}"></span> items)</h5>
 
-                    <!-- Card -->
-                    <div class="card wish-list mb-4">
-                        <div class="card-body">
-
-                            <h5 class="mb-4">Cart (<span th:text="${cartCount}"></span> items)</h5>
-
-                            <div class="row mb-4" th:each="item, iStat : ${cart}">
-
-                                <div class="col-md-7 col-lg-9 col-xl-9">
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h5 th:text="${item.name}"></h5>
-                   <p class="mb-3 text-uppercase small">Weight: <span th:text="${item.weight}"></span> grams</p>
-                                       <p class="mb-0"><span><strong>₹<span th:text="${item.price}"></span></strong></span></p>
-                                            </div>
-
-                                        </div>
-                                        <div class="mt-5 d-flex justify-content-between align-items-center">
-                                            <div>
-                                  <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"  
-                                  type="button" class="card-link-secondary small text-uppercase mr-3"><i
-                                                        class="fas fa-trash-alt mr-1"></i> Remove item </a>
-
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="cart-item" th:each="item, iStat : ${cart}">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 th:text="${item.name}"></h5>
+                                    <p class="mb-2 meta text-uppercase">Weight: <span th:text="${item.weight}"></span> grams</p>
+                                    <p class="mb-0 price"><span class="rupee"></span><span th:text="${item.price}"></span></p>
+                                </div>
+                                <div class="text-right">
+                                    <a href="#!" th:href="@{/cart/removeItem/{index}(index=${iStat.index})}"
+                                       class="remove-link"><i class="fas fa-trash-alt mr-1"></i> Remove</a>
                                 </div>
                             </div>
-                            <hr class="mb-4">
-
-           <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
-                                items to your cart does not mean booking them.</p>
-
                         </div>
-                    </div>
-               </div>
-                <!--Grid column-->
 
-                <!--Grid column-->
+                        <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
+                            items to your cart does not mean booking them.</p>
+                    </div>
+                </div>
+
                 <div class="col-lg-4">
+                    <div class="glass-card mb-4 p-4">
+                        <h5 class="mb-3 section-title">The total amount</h5>
 
-                    <!-- Card -->
-                    <div class="card mb-4">
-                        <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Amount Payable
+                                <span class="price"><span class="rupee"></span><span th:text="${total}"></span></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Shipping
+                                <span>Gratis</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>The total amount of</strong>
+                                    <strong>
+                                        <p class="mb-0">(including VAT)</p>
+                                    </strong>
+                                </div>
+                                <span><strong><span class="rupee"></span><span th:text="${total}"></span></strong></span>
+                            </li>
+                        </ul>
 
-                            <h5 class="mb-3">The total amount </h5>
-
-                            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                    Amount Payable
-                                 <span>₹<span th:text="${total}"></span></span>
-                                </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    Shipping
-                                    <span>Gratis</span>
-                                </li>
-                   <li class="st-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                    <div>
-                                        <strong>The total amount of</strong>
-                                        <strong>
-                                            <p class="mb-0">(including VAT)</p>
-                                        </strong>
-                                    </div>
-                                    <span><strong>₹<span th:text="${total}"></span></strong></span>
-                                </li>
-                            </ul>
-
-               <a th:href="@{/checkout}" h class="btn btn-primary btn-block waves-effect waves-light">go to
-                                checkout</a>
-
-                        </div>
+                        <a th:href="@{/checkout}" class="btn btn-primary btn-block">Go to checkout</a>
                     </div>
-                    <!-- Card -->
 
-                    <!-- Card -->
-                    <div class="card mb-4">
-                        <div class="card-body">
+                    <div class="glass-card mb-4 p-4">
+                        <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
+                           aria-expanded="false" aria-controls="collapseExample">
+                            Add a discount code (optional)
+                            <span><i class="fas fa-chevron-down pt-1"></i></span>
+                        </a>
 
-        <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
-                               aria-expanded="false" aria-controls="collapseExample">
-                                Add a discount code (optional)
-                                <span><i class="fas fa-chevron-down pt-1"></i></span>
-                            </a>
-
-                       <div class="collapse" id="collapseExample">
-                           <div class="mt-3">
-                                    <div class="md-form md-outline mb-0">
-                         <input type="text" id="discount-code" class="form-control font-weight-light"
-                                               placeholder="Enter discount code">
-                                    </div>
+                        <div class="collapse" id="collapseExample">
+                            <div class="mt-3">
+                                <div class="md-form md-outline mb-0">
+                                    <input type="text" id="discount-code" class="form-control font-weight-light"
+                                           placeholder="Enter discount code">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Card -->
 
                 </div>
-                <!--Grid column-->
-           </div>            <!--Grid row-->
+           </div>
        </section>
-        <!--Section: Block Content-->
     </div>
-</main><!--Main layout-->
+</main>
 
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -170,3 +233,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
+

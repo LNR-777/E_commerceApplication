@@ -33,9 +33,11 @@ public class SecurityConfig {
 	{
 		//(cross-site Request Forgery)
 	http.csrf(c->c.disable())
-		.authorizeHttpRequests(request->request.requestMatchers("/admin/**")
-				.hasAuthority("ADMIN").requestMatchers("/cart").hasAuthority("USER")
-				.requestMatchers("/","/home","/shop/**","/registration","/css/**","/images/**","/productImages/**").permitAll()
+		.authorizeHttpRequests(request->request
+				.requestMatchers("/admin/registration","/admin/registration/**").permitAll()
+				.requestMatchers("/admin/**").hasAuthority("ADMIN")
+				.requestMatchers("/cart").hasAuthority("USER")
+				.requestMatchers("/","/home","/shop/**","/registration","/css/**","/js/**","/images/**","/productImages/**","/webjars/**").permitAll()
 				.anyRequest().authenticated())
 		.formLogin(form->form.loginPage("/login").loginProcessingUrl("/login")
 				.successHandler(customSuccessHandler).permitAll())

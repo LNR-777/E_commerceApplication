@@ -4,38 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
-	   
-        
-    <div class="container">
-        <div class="message" th:if="${param.error}">
-			Invalid Username or Password..
-		</div>
-    
-        <div class="message" th:if="${param.Logout}">
-			Logout Successfuly...
-		</div>
-    
-        <h2>Login Form</h2>
-         <form th:action="@{/login}" method="post">
-            <div class="form-group">
+    <main class="auth">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <div class="brand-badge">FreshCart</div>
+                <h1>Welcome back</h1>
+                <p>Sign in to manage your cart and discover fresh deals.</p>
+            </div>
+
+            <div class="message error" th:if="${param.error}">
+                Invalid Username or Password.
+            </div>
+
+            <div class="message success" th:if="${param.Logout}">
+                Logout Successfully.
+            </div>
+
+            <form class="auth-form" th:action="@{/login}" method="post">
                 <label for="username">Email</label>
-                <input type="email"  id="username" name="username" required placeholder="Enter Email">
-            </div>
-            <div class="form-group">
+                <input type="email" id="username" name="username" required placeholder="you@example.com">
+
                 <label for="password">Password</label>
-                <input  type="password"  id="password" name="password" required placeholder="Enter Password">
-            </div>
-            <button type="submit">Login</button>
-            <br>
-            <br>
-          <span >Don't have an account <a class="linkControl" href="./register.html"
-                                          th:href="@{/registration}">Register here</a></span>
-               
-        </form>
-    </div>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+
+                <button type="submit">Login</button>
+
+                <p class="auth-footer">
+                    Don't have an account?
+                    <a class="linkControl" href="./register.html" th:href="@{/registration}">Register here</a>
+                </p>
+            </form>
+        </div>
+    </main>
     
 </body>
 </html>
+

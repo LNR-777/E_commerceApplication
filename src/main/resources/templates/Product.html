@@ -60,7 +60,8 @@
          <td th:text="${product.category.name}"></td>
           <td th:text="${product.price}"></td>
 
-         <td><img src="" height="100px" width="100px"  th:src="@{${'/productImages/' + product.imgName}}"></td>
+         <td><img src="" height="100px" width="100px"
+                  th:src="${#strings.startsWith(product.imgName,'http') ? product.imgName : '/productImages/' + product.imgName}"></td>
 
      	   <td><a href="" th:href="@{/admin/product/delete/{id}(id=${product.product_id})}" class="btn btn-danger">Delete</a></td>
      	    
@@ -81,3 +82,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
+

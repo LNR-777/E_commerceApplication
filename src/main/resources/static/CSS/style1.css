@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+body {
+    background: #f6f7fb;
+    color: #222;
+    padding-bottom: 80px;
+}
+
 /* Basic styles for header */
 header {
     background-color: #2ecc71;
@@ -44,6 +50,35 @@ nav ul li a {
 .main-section p {
     font-size: 1.2em;
     margin-bottom: 30px;
+}
+
+.info-section {
+    padding: 40px 0;
+}
+
+#about {
+    background: linear-gradient(180deg, #eef8f0, #f6f7fb);
+}
+
+#contact {
+    background: #f0f6f1;
+}
+
+.info-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.info-card h2 {
+    margin-bottom: 12px;
+}
+
+.info-card p {
+    margin-bottom: 10px;
 }
 
 /* Button styles */
