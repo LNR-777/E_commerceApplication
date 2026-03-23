@@ -1,49 +1,133 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<style>
-		div
-		{
-			border:2px solid dodgerblue;
-			width:20%;
-			height:40%;
-			padding: 10px;
-			display: inline-block;
-			
-		}
-		h1
-		{
-			text-align: center;
-			background-color: dodgerblue;
-			height:40%;
-			font-size:70px;
-		}
-		h4
-		{
-		
-			font-size:20px;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <title>Admin Dashboard</title>
+    <style>
+        :root {
+            --brand: #16a34a;
+            --brand-dark: #0f8a3d;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --card: #ffffff;
+            --line: #e5e7eb;
+        }
+        body {
+            margin: 0;
+            font-family: "Space Grotesk", "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(22, 163, 74, 0.18), transparent 42%),
+                radial-gradient(circle at 86% 12%, rgba(59, 130, 246, 0.14), transparent 38%),
+                #f4f6fb;
+            color: var(--ink);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(10px);
+        }
+        .brand {
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            margin-left: 8px;
+            background: #fff;
+        }
+        .nav a:hover {
+            background: var(--brand);
+            color: #fff;
+            border-color: var(--brand);
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+        .hero {
+            background: linear-gradient(120deg, rgba(22, 163, 74, 0.14), rgba(59, 130, 246, 0.14));
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+        }
+        .card h3 {
+            margin: 0 0 8px 0;
+        }
+        .card p {
+            color: var(--muted);
+            margin: 0 0 12px 0;
+        }
+        .card a {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+    </style>
 </head>
-
 <body>
-                    <a class="nav-link" th:href="@{/admin}" href="#">admin-home</a>
-                    <a class="nav-link" th:href="@{/logout}" href="#">logout</a>
-    			<h1>Food Basket</h1>
-    			<div >
-                    <h4>Categories</h4>
-                    <a href="/admin/categories">Manage</a>
-					</div>
-<div>
-                    <h4>Product</h4>
-                    <a href="/admin/product">Manage</a>
-</div>
-<div>
-	
+    <div class="nav">
+        <div class="brand">FreshCart Admin</div>
+        <div>
+            <a th:href="@{/admin}">Dashboard</a>
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
 
-   				 <h4>New User</h4>
-                    <a href="/admin/users">Manage</a>
-</div>
+    <div class="wrap">
+        <div class="hero">
+            <h1>Admin Dashboard</h1>
+            <p>Manage products, categories, and users from one place.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Categories</h3>
+                <p>Create and organize product categories.</p>
+                <a href="/admin/categories">Manage</a>
+            </div>
+            <div class="card">
+                <h3>Products</h3>
+                <p>Add, edit, and update product listings.</p>
+                <a href="/admin/product">Manage</a>
+            </div>
+            <div class="card">
+                <h3>Users</h3>
+                <p>View and manage user accounts.</p>
+                <a href="/admin/users">Manage</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
-

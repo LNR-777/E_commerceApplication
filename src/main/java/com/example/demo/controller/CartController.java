@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.global.GlobalData;
 import com.example.demo.model.Product;
+import com.example.demo.dto.CartItemDTO;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 
@@ -43,11 +48,19 @@ public String cartGet(Model model,Principal principal)
 	{
 		UserDetails userDetails=userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user",userDetails);
-	
+
+		List<CartItemDTO> items = buildCartItems();
+		double subtotal = items.stream().mapToDouble(CartItemDTO::getSubtotal).sum();
+		double vat = 0.0;
+		double total = subtotal + vat;
 		
-		model.addAttribute("cartCount",GlobalData.cart.size());
-		model.addAttribute("total",GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
-		model.addAttribute("cart", GlobalData.cart);
+		model.addAttribute("cartCount", GlobalData.cart.size());
+		model.addAttribute("subtotal", subtotal);
+		model.addAttribute("vat", vat);
+		model.addAttribute("total", total);
+		model.addAttribute("cartItems", items);
+		model.addAttribute("cartEmpty", items.isEmpty());
+		model.addAttribute("suggestions", productService.getAllProduct().stream().limit(4).toList());
 		return "cart"; 
 	}
 	@GetMapping("/cart/removeItem/{index}")
@@ -58,10 +71,66 @@ public String cartGet(Model model,Principal principal)
 		
 	}
 	
+	@GetMapping("/cart/increase/{id}")
+	public String increaseQuantity(@PathVariable long id)
+	{
+		GlobalData.cart.add(productService.getProductById(id).get());
+		return "redirect:/cart";
+	}
+	
+	@GetMapping("/cart/decrease/{id}")
+	public String decreaseQuantity(@PathVariable long id)
+	{
+		for (int i = 0; i < GlobalData.cart.size(); i++) {
+			if (GlobalData.cart.get(i).getProduct_id() == id) {
+				GlobalData.cart.remove(i);
+				break;
+			}
+		}
+		return "redirect:/cart";
+	}
+	
+	@GetMapping("/cart/remove/{id}")
+	public String removeAllOfItem(@PathVariable long id)
+	{
+		GlobalData.cart.removeIf(p -> p.getProduct_id() == id);
+		return "redirect:/cart";
+	}
+	
 	@GetMapping("/checkout")
 	public String checkout(Model model)
 	{
-		model.addAttribute("total",GlobalData.cart.stream().mapToDouble(Product::getPrice).sum());
+		List<CartItemDTO> items = buildCartItems();
+		double subtotal = items.stream().mapToDouble(CartItemDTO::getSubtotal).sum();
+		double vat = 0.0;
+		double total = subtotal + vat;
+		model.addAttribute("total", total);
 		return "checkout";
+	}
+	
+	private List<CartItemDTO> buildCartItems() {
+		Map<Long, CartItemDTO> grouped = new LinkedHashMap<>();
+		for (Product product : GlobalData.cart) {
+			if (product == null) {
+				continue;
+			}
+			long id = product.getProduct_id();
+			CartItemDTO existing = grouped.get(id);
+			String categoryName = "";
+			try {
+				if (product.getCategory() != null) {
+					categoryName = product.getCategory().getName();
+				}
+			} catch (Exception ex) {
+				categoryName = "";
+			}
+			if (existing == null) {
+				grouped.put(id, new CartItemDTO(product, 1, product.getPrice(), categoryName));
+			} else {
+				int qty = existing.getQuantity() + 1;
+				grouped.put(id, new CartItemDTO(product, qty, qty * product.getPrice(), categoryName));
+			}
+		}
+		return new ArrayList<>(grouped.values());
 	}
 }
