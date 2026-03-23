@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans:wght@400;600;700&display=swap">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Product Details | FreshCart</title>
     <style>
         :root {
             --brand: #16a34a;
@@ -149,7 +149,7 @@
                 <h2 th:text="${product.name}"></h2>
                 <p class="meta" th:text="${product.category.name}"></p>
                 <div class="price"><span class="rupee"></span><span th:text="${product.price}"></span></div>
-                <p class="meta">Weight: <span th:text="${product.weight}"></span> grams</p>
+                <p class="meta">Net weight: <span th:text="${product.weight}"></span> grams</p>
        
                 <a href="" th:href="@{/addToCart/{id}(id = ${product.product_id})}" class="btn btn-primary">Add to cart</a>
             </div>
