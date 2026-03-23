@@ -1,9 +1,9 @@
-# FreshCart (Spring Boot E-commerce)
+ï»¿# FreshCart (Spring Boot E-commerce)
 
 FreshCart is a full-stack e-commerce web app built as an internship project to demonstrate real-world skills in Java, Spring Boot, and UI development. It includes a modern storefront, cart UX, and basic admin management.
 
 ## Highlights
-- Product browsing with categories
+- Healthy snacks browsing with categories
 - Product details page
 - Cart with quantity controls and per-item subtotal
 - Order summary with VAT and shipping breakdown
@@ -41,13 +41,18 @@ Product images are saved in:
 This folder is ignored by Git.
 
 ## Project Structure
-- `src/main/java` — controllers, services, models
-- `src/main/resources/templates` — Thymeleaf views
-- `src/main/resources/static` — CSS/JS/images
+- `src/main/java` - controllers, services, models
+- `src/main/resources/templates` - Thymeleaf views
+- `src/main/resources/static` - CSS/JS/images
 
 ## Notes
 - Cart is stored in memory for simplicity.
 - Discount code UI is demo-only (no backend validation yet).
 
 ---
-If you want seed data, payment integration, or a REST API, those can be added later.
+If you want demo seed data, payment integration, or a REST API, those can be added later.
+
+
+## Demo Seed Data
+Sample categories and products load automatically on startup from `src/main/resources/data.sql`.
+You can disable it by setting `spring.sql.init.mode=never`.
