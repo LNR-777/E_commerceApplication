@@ -25,6 +25,10 @@ body {
     min-height: 100vh;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .site-header {
     display: flex;
     align-items: center;
@@ -189,6 +193,7 @@ body {
 
 .info-section {
     padding: 40px 48px;
+    scroll-margin-top: 96px;
 }
 
 .info-grid {

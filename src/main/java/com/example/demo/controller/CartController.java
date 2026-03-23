@@ -13,11 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+
+import jakarta.validation.Valid;
 
 import com.example.demo.global.GlobalData;
 import com.example.demo.model.Product;
 import com.example.demo.dto.CartItemDTO;
+import com.example.demo.dto.CheckoutForm;
 import com.example.demo.service.ProductService;
 
 @Controller
@@ -101,6 +106,26 @@ public String cartGet(Model model,Principal principal)
 		double vat = 0.0;
 		double total = subtotal + vat;
 		model.addAttribute("total", total);
+		model.addAttribute("checkoutForm", new CheckoutForm());
+		return "checkout";
+	}
+
+	@PostMapping("/checkout")
+	public String placeOrder(@Valid CheckoutForm checkoutForm, BindingResult bindingResult, Model model)
+	{
+		List<CartItemDTO> items = buildCartItems();
+		double subtotal = items.stream().mapToDouble(CartItemDTO::getSubtotal).sum();
+		double vat = 0.0;
+		double total = subtotal + vat;
+		model.addAttribute("total", total);
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("checkoutForm", checkoutForm);
+			return "checkout";
+		}
+
+		model.addAttribute("orderSuccess", true);
+		GlobalData.cart.clear();
 		return "checkout";
 	}
 	
