@@ -7,35 +7,84 @@
     <link rel="stylesheet" href="/css/style1.css">
 </head>
 <body>
-    <header>
-        <h1>FreshCart Healthy Snacks</h1>
+    <header class="site-header">
+        <div class="brand-row">
+            <span class="brand-mark">FreshCart</span>
+            <span class="brand-sub">Healthy Snacks</span>
+        </div>
+        <nav class="nav-links">
+            <a href="/" class="nav-link is-active">Home</a>
+            <a href="/shop" class="nav-link">Shop</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/home#about">About</a></li>
-            <li><a href="/home#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <section class="main-section">
-        <h2>Smart Snacks for Busy Days</h2>
-        <p>Protein bars, trail mix, cold brew, and low‑sugar bites curated for on‑the‑go energy.</p>
-        <a href="/shop" class="btn">Shop Healthy</a>
-    </section>
-    <section id="about" class="main-section info-section">
-        <div class="info-card">
-            <h2>About Us</h2>
-            <p>We curate wholesome snacks and clean beverages that fit busy routines and healthy goals.</p>
-        </div>
-    </section>
-    <section id="contact" class="main-section info-section">
-        <div class="info-card">
-            <h2>Contact</h2>
-            <p>Email: support@grocerystore.local777</p>
-            <p>Phone: 7770009000</p>
-        </div>
-    </section>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Fuel focused days</p>
+                <h1>Smart Snacks for Busy Days</h1>
+                <p class="hero-sub">
+                    Protein bars, trail mix, cold brew, and low‑sugar bites curated for on‑the‑go energy.
+                </p>
+                <div class="hero-actions">
+                    <a href="/shop" class="btn btn-primary">Shop Healthy</a>
+                    <a href="#about" class="btn btn-ghost">Learn More</a>
+                </div>
+                <div class="hero-meta">
+                    <div>
+                        <strong>250+</strong>
+                        <span>Healthy picks</span>
+                    </div>
+                    <div>
+                        <strong>24 hr</strong>
+                        <span>Fast delivery</span>
+                    </div>
+                    <div>
+                        <strong>4.8</strong>
+                        <span>Customer rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-card">
+                <img src="/productImages/protein_bar.jpg" alt="Protein bar snack" class="hero-image">
+                <div class="hero-card-text">
+                    <h3>Choco Protein Bar</h3>
+                    <p>High‑protein • Low sugar • Ready to go</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="info-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h2>About Us</h2>
+                    <p>We curate wholesome snacks and clean beverages that fit busy routines and healthy goals.</p>
+                </div>
+                <div class="info-card">
+                    <h2>Why FreshCart</h2>
+                    <p>Transparent ingredients, balanced macros, and a rotating lineup of new drops every week.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="info-section contact-section">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h2>Contact</h2>
+                    <p>Email: support@grocerystore.local777</p>
+                    <p>Phone: 7770009000</p>
+                </div>
+                <div class="info-card">
+                    <h2>Support Hours</h2>
+                    <p>Mon–Sat: 9:00 AM – 8:00 PM</p>
+                    <p>Sunday: 10:00 AM – 6:00 PM</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer>
         <p>&copy; 2026 FreshCart Healthy Snacks. All rights reserved.</p>
     </footer>
