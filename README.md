@@ -51,13 +51,11 @@ Product images can be stored as:
 The app serves `/productImages/**` from both the uploads folder and the bundled static images.
 
 ## Project Structure
-- `src/main/java` — controllers, services, models
-- `src/main/resources/templates` — Thymeleaf views
-- `src/main/resources/static` — CSS/JS/images
+- `src/main/java` â€” controllers, services, models
+- `src/main/resources/templates` â€” Thymeleaf views
+- `src/main/resources/static` â€” CSS/JS/images
 
 ## Notes
 - Cart is stored in memory for simplicity in this demo.
 - Checkout uses server-side validation and shows field errors in the UI.
 
----
-If you’d like a REST API version, payment integration, or a React frontend, those can be added next.
