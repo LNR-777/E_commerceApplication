@@ -221,6 +221,8 @@ public class AdminController {
 
 		return "addProduct";
 	}
+	
+	
 
 	// User
 
@@ -265,5 +267,6 @@ public class AdminController {
 
 		return "redirect:/admin/users";
 	}
-
+	
+	
 }
